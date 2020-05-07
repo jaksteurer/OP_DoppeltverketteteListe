@@ -9,15 +9,16 @@ public class List {
 		this.tail = head;
 		this.head = new Elem(z);
 	}
-	
-	public void listenLänge() {
-		int laenge=0;
+	//zeigt länge der Liste an
+	public int listenLänge() {
+		laenge=0;
 		Elem aktuellerHead = head;
 		while(aktuellerHead != null) {
 			laenge++;
 			aktuellerHead = aktuellerHead.nextAddress;
 		}
-		System.out.println("länge: "+laenge);
+		//System.out.println("länge: "+laenge);
+		return laenge;
 	}
 	
 	private Elem getElemByIndex(int index) {
@@ -27,7 +28,7 @@ public class List {
 			aktuellerHead = aktuellerHead.nextAddress;
 			zaehler++;
 			if (aktuellerHead == null) {
-				System.out.println("Es existiert kein Element mit index " + index + ".");
+				System.out.println("[getElemByIndex] Es existiert kein Element mit index " + index + ".");
 				return null;
 			}
 		}
@@ -42,66 +43,109 @@ public class List {
 		}
 		return i;
 	}
-	
-	public void elemhinzufügen(int z) {
-		Elem neuesE = new Elem(z);
-		tail.nextAddress = neuesE;
-		neuesE.prevAddress = tail;
-		tail = neuesE;
+	//Eintrag an letzter Stelle hinzufügen	
+	public void einfügenLetzteStelle(int z) {
+		einfügenBeliebigeStelle(laenge, z);
 	}
-	
-	
-	public void elemlöschen(int i) {
-		if(i < 0) System.out.println("index muss positiv sein!");
-		if(i >= laenge) System.out.println("index muss kleiner als laenge sein!");
-		if(i == getIndexByElem(head)) head = head.nextAddress;
-		if(i == getIndexByElem(tail)) tail = tail.nextAddress;
+	//Eintrag an erster Stelle hinzufügen
+	public void einfügenErsteStelle(int z) {
+		einfügenBeliebigeStelle(getIndexByElem(head), z);
+	}
+	//Eintrag an beliebiger Stelle hinzufügen
+	public void einfügenBeliebigeStelle(int stelle, int z) {
+		if(stelle<0) System.out.println("[einfügenBeliebigeStelle] index muss positiv sein!");
+		if (stelle > laenge) System.out.println("[einfügenBeliebigeStelle] index muss kleiner als die laenge der Liste sein!");
+		Elem newElem = new Elem(z);
+		if(stelle == laenge) {
+			tail.nextAddress = newElem;
+			newElem.prevAddress = tail;
+			tail = newElem;
+		}
+		if(stelle== getIndexByElem(head)) {
+			head.prevAddress = newElem;
+			newElem.nextAddress=head;
+			head = newElem;
+		}
 		
-		Elem elemLöschen = getElemByIndex(i);
-		Elem letztesE = elemLöschen.prevAddress;
+		Elem nextElem = getElemByIndex(stelle);
+		Elem prevElem = getElemByIndex(stelle-1);
+		newElem.prevAddress = prevElem;
+		newElem.nextAddress = nextElem;
+		nextElem.prevAddress = newElem;
+		prevElem.nextAddress = newElem;
+	}
+	//Element an letzter Stelle löschen
+	public void löschenLetzteStelle() {
+		löschenBeliebigeStelle(getIndexByElem(tail));
+	}
+	//Element an erster Stelle löschen
+	public void löschenErsteStelle() {
+		löschenBeliebigeStelle(getIndexByElem(head));
+	}
+	//Element an beliebiger Stelle löschen
+	public void löschenBeliebigeStelle(int stelle) {
+		if(stelle < 0) System.out.println("[löschenBeliebigeStelle] index muss positiv sein!");
+		if(stelle >= laenge) System.out.println("[löschenBeliebigeStelle] index muss kleiner als laenge sein!");
+		Elem elemLöschen = getElemByIndex(stelle);
 		Elem nächstesE = elemLöschen.nextAddress;
-		letztesE.nextAddress = nächstesE;
-		nächstesE.prevAddress = letztesE;		
+		Elem letztesE = elemLöschen.prevAddress;
+		nächstesE.prevAddress = letztesE;
+		letztesE.nextAddress = nächstesE;	
 	}
 	
-	public void tauschen(int i1, int i2) {
-		if(i1 == i2)System.out.println("es gibt nichts zu vertauschen.");
-		Elem e1 = getElemByIndex(i1);
-		Elem e2 = getElemByIndex(i2);
+	public void tauschen(int stelle1, int stelle2) {
+		if(stelle1 == stelle2)System.out.println("[tauschen] es gibt nichts zu vertauschen.");
+		Elem tausch1 = getElemByIndex(stelle1);
+		Elem tausch2 = getElemByIndex(stelle2);
 		
-		Elem tmp = e1.nextAddress;
-		e1.nextAddress = e2.nextAddress;
-		e2.nextAddress = tmp;
-		tmp = e1.prevAddress;
-		e1.prevAddress = e2.prevAddress;
-		e2.prevAddress = tmp;
+		Elem tmp = tausch1.nextAddress;
+		tausch1.nextAddress = tausch2.nextAddress;
+		tausch2.nextAddress = tmp;
 		
-		e1.prevAddress = e2;
-		e2.nextAddress = e1;
+		tmp = tausch1.prevAddress;
+		tausch1.prevAddress = tausch2.prevAddress;
+		tausch2.prevAddress = tmp;
 		
-		e2.prevAddress.nextAddress = e2;
-		e1.nextAddress.prevAddress = e1;
+		tausch1.prevAddress = tausch2;
+		tausch2.nextAddress = tausch1;
+		
+		tausch2.prevAddress.nextAddress = tausch2;
+		tausch1.nextAddress.prevAddress = tausch1;
 	}
-	
+	//Liste mit allen Einträgen wird ausgegeben
 	public void listeAusgeben() {
 		Elem aktuellerHead = head;
-		while(aktuellerHead != null) {
+		for(int i = 0; i<= laenge;i++){
 			System.out.println("Wert: "+aktuellerHead.zahl+"\nvorherige Adresse: "+aktuellerHead.prevAddress
-					+"nächste Adressse"+aktuellerHead.prevAddress);
+					+"\nnächste Adressse: "+aktuellerHead.prevAddress);
 		}
 	}
-	
 	public static void main(String[]args) {
 		
-		List liste1 = new List(5);
-		liste1.elemhinzufügen(9);
-		liste1.elemhinzufügen(7);
-		liste1.elemhinzufügen(11);
-		liste1.elemhinzufügen(1);
-		System.out.println("--------LISTE 1--------"); liste1.listeAusgeben();
-		System.out.println("-----LÄNGE LISTE 1-----");liste1.listenLänge();
-		System.out.println("----ELEMENT LÖSCHEN----");liste1.elemlöschen(5);
-		System.out.println("-----LÄNGE LISTE 1-----");liste1.listenLänge();	
+		List liste = new List(2);
+		System.out.println("LISTE:"); liste.listeAusgeben();
+		liste.einfügenErsteStelle(1);
+		liste.einfügenLetzteStelle(3);
+		System.out.println("LISTE:"); liste.listeAusgeben();
+		liste.einfügenBeliebigeStelle(1, 6);
+		System.out.println("LISTE:"); liste.listeAusgeben();
+		liste.tauschen(1, 2);
+		System.out.println("LISTE:"); liste.listeAusgeben();
+		
+
+//		System.out.println("LISTE:"); l.listeAusgeben();	
+//		System.out.println("LAENGE: "); l.listenLänge();
+//		System.out.println("beliebige Stelle löschen: "); l.löschenBeliebigeStelle(5);
+//		System.out.println("erste Stelle löschen: "); l.löschenErsteStelle();
+//		System.out.println("letzte Stelle löschen: "); l.löschenLetzteStelle();
+//		System.out.println("zwei Stellen tauschen: "); l.tauschen(2, 3);
+//		System.out.println("LISTE:"); l.listeAusgeben();	
+//		System.out.println("LAENGE: "); l.listenLänge();
+//		
+//		System.out.println("--------LISTE 1--------"); l.listeAusgeben();
+//		System.out.println("-----LÄNGE LISTE 1-----");l.listenLänge();
+//		System.out.println("----ELEMENT LÖSCHEN----");l.löschenBeliebigeStelle(5);
+//		System.out.println("-----LÄNGE LISTE 1-----");l.listenLänge();	
 	}
 
 }
