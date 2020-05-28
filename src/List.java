@@ -192,6 +192,7 @@ public class List {
 
 	public static void main(String[]args) throws IOException {
 		
+		//Zeitstempel für Textdatei
 		final SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd_HH.mm.ss");
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());		
 
@@ -210,8 +211,8 @@ public class List {
 			liste1.einfügenBeliebigeStelle(60, 3);
 			//System.out.println("zwei Elemente an beliebiger Stelle hinzugefügt:");
 			//liste1.listeAusgeben();
-			//		liste1.tauschen(2, 0);
-			//		System.out.println("drittes Element mit erstem getauscht:");
+			//liste1.tauschen(2, 0);
+			//System.out.println("drittes Element mit erstem getauscht:");
 			//liste1.listeAusgeben();
 			liste1.löschenErsteStelle();
 			//System.out.println("erstes Element gelöscht: ");
@@ -249,12 +250,15 @@ public class List {
 		//Zeiten
 		System.out.println("\n---------Dauer der Listendurchläufe---------");
 		System.err.println("---Zeiten der eigenen Liste---");
+		//Textdatei erstellen
 		PrintWriter pwListe1 = new PrintWriter(new BufferedWriter(new FileWriter("Steurer_Zeiten_"+ sdf.format(timestamp) +".txt")));
 		for(int key : zeitenListe1.keySet()) {
 			System.out.println("Durchlauf: "+key + "\n\t " + Arrays.toString(zeitenListe1.get(key))+" Nanosekunden" );
 			try {
+				//Werte in die Textdatei laden
 				pwListe1.println("Durchlauf: "+key + "\n\t " + Arrays.toString(zeitenListe1.get(key))+" Nanosekunden" );
-				pwListe1.flush();
+				//Mit .flush(); werden die Dateien vom Puffer in die Textdatei geladen();
+				pwListe1.flush(); 
 			}catch(Exception e) {
 				System.out.println(e);
 			}

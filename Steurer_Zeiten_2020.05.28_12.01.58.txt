@@ -1,0 +1,20 @@
+Durchlauf: 1
+	 [596200] Nanosekunden
+Durchlauf: 2
+	 [3700] Nanosekunden
+Durchlauf: 3
+	 [2700] Nanosekunden
+Durchlauf: 4
+	 [2100] Nanosekunden
+Durchlauf: 5
+	 [1900] Nanosekunden
+Durchlauf: 6
+	 [1800] Nanosekunden
+Durchlauf: 7
+	 [1800] Nanosekunden
+Durchlauf: 8
+	 [1800] Nanosekunden
+Durchlauf: 9
+	 [1800] Nanosekunden
+Durchlauf: 10
+	 [1700] Nanosekunden
