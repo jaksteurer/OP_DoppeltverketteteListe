@@ -1,3 +1,7 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -6,7 +10,7 @@ public class List {
 
 	public Elem tail;
 	public Elem head;
-	
+
 	public List(int z) {
 		this.head = new Elem(z);
 		this.tail = head;
@@ -147,20 +151,20 @@ public class List {
 		}else {
 			Elem p = tausch2.prevAddress;
 			Elem n = tausch2.nextAddress;
-			
+
 			tausch2.prevAddress = tausch1.prevAddress;
 			tausch2.nextAddress = tausch1.nextAddress;
-			
+
 			tausch1.prevAddress = p;
 			tausch1.nextAddress = n;
-			
+
 			if (tausch2.nextAddress != null) {
 				tausch2.nextAddress.prevAddress = tausch2;
 			}
 			if (tausch2.prevAddress != null) {
 				tausch2.prevAddress.nextAddress = tausch2;
 			}
-			
+
 			if (tausch1.nextAddress != null) {
 				tausch1.nextAddress.prevAddress = tausch1;
 			}
@@ -168,7 +172,6 @@ public class List {
 				tausch1.prevAddress.nextAddress = tausch1;
 			}
 		}
-		
 	}
 	//Liste mit allen Einträgen wird ausgegeben
 	public void listeAusgeben() {
@@ -179,73 +182,92 @@ public class List {
 			aktuellerHead = aktuellerHead.nextAddress;
 		}
 	}
-	
+
 	//Vergleich mit LinkedList
 	final static int DURCHLÄUFE = 2;
 	static HashMap<Integer, Object[]> zeitenListe1 = new HashMap<Integer, Object[]>();
 	static HashMap<Integer, Object[]> zeitenll = new HashMap<Integer, Object[]>();
-	
-	public static void main(String[]args) {
-		
+
+	public static void main(String[]args) throws IOException {
+
+		//Eigene Linked List
 		System.out.println("-------------------Liste1-------------------");
 		for(int i = 0; i<=DURCHLÄUFE;i++) {
-		final long TimeListe1Start = System.currentTimeMillis();
-		List liste1 = new List(5);
-		System.out.println("Liste erstellt + erster Eintrag: ");
-		liste1.listeAusgeben();
-		liste1.einfügenLetzteStelle(4);
-		liste1.einfügenErsteStelle(1);
-		System.out.println("head und tail hinzugefügt: ");
-		liste1.listeAusgeben();
-		liste1.einfügenBeliebigeStelle(50, 1);
-		liste1.einfügenBeliebigeStelle(60, 3);
-		System.out.println("zwei Elemente an beliebiger Stelle hinzugefügt:");
-		liste1.listeAusgeben();
-//		liste1.tauschen(2, 0);
-//		System.out.println("drittes Element mit erstem getauscht:");
-		//liste1.listeAusgeben();
-		liste1.löschenErsteStelle();
-		System.out.println("erstes Element gelöscht: ");
-		liste1.listeAusgeben();
-		final long TimeListe1Ende = System.currentTimeMillis();
-		long dauer = TimeListe1Ende - TimeListe1Start;
-		System.out.println("\tDauer der eigenen Liste: "
-				+dauer+" Millisekunden.");
-		zeitenListe1.put(i, new Object[] {dauer});
-		System.out.println("----------------------");
+			final long TimeListe1Start = System.currentTimeMillis();
+			List liste1 = new List(5);
+			System.out.println("Liste erstellt + erster Eintrag: ");
+			liste1.listeAusgeben();
+			liste1.einfügenLetzteStelle(4);
+			liste1.einfügenErsteStelle(1);
+			System.out.println("head und tail hinzugefügt: ");
+			liste1.listeAusgeben();
+			liste1.einfügenBeliebigeStelle(50, 1);
+			liste1.einfügenBeliebigeStelle(60, 3);
+			System.out.println("zwei Elemente an beliebiger Stelle hinzugefügt:");
+			liste1.listeAusgeben();
+			//		liste1.tauschen(2, 0);
+			//		System.out.println("drittes Element mit erstem getauscht:");
+			//liste1.listeAusgeben();
+			liste1.löschenErsteStelle();
+			System.out.println("erstes Element gelöscht: ");
+			liste1.listeAusgeben();
+			final long TimeListe1Ende = System.currentTimeMillis();
+			long dauer = TimeListe1Ende - TimeListe1Start;
+			System.out.println("\tDauer der eigenen Liste: "
+					+dauer+" Millisekunden.");
+			zeitenListe1.put(i, new Object[] {dauer});
+			System.out.println("----------------------");
 		}
-		
+		//JAVA Linked List
 		System.out.println("\n--------------Java Linked List--------------");
 		for(int i = 0;i<=DURCHLÄUFE;i++) {
-		final long TimellStart = System.currentTimeMillis();
-		LinkedList<Integer> ll = new LinkedList<Integer>();
-		ll.add(1);
-		System.out.println("\tListe erstellt + erster Eintrag: "+ ll);
-		ll.addLast(8);
-		ll.addFirst(4);
-		System.out.println("\thead und tail hinzugefügt: "+ ll);
-		//.add(stelle, zahl)
-		ll.add(2, 6);
-		ll.add(3, 7);
-		System.out.println("\tzwei Elemente an beliebiger Stelle hinzugefügt: "+ll);
-		ll.removeFirst();
-		System.out.println("\terstes Element gelöscht: "+ll);
-		final long TimellEnde= System.currentTimeMillis();
-		long dauer = TimellEnde - TimellStart;
-		System.out.println("\tDauer der eigenen Liste: "
-				+dauer+" Millisekunden.");
-		zeitenll.put(i, new Object[] {dauer});
-		System.out.println("----------------------");
+			final long TimellStart = System.currentTimeMillis();
+			LinkedList<Integer> ll = new LinkedList<Integer>();
+			ll.add(1);
+			System.out.println("\tListe erstellt + erster Eintrag: "+ ll);
+			ll.addLast(8);
+			ll.addFirst(4);
+			System.out.println("\thead und tail hinzugefügt: "+ ll);
+			//.add(stelle, zahl)
+			ll.add(2, 6);
+			ll.add(3, 7);
+			System.out.println("\tzwei Elemente an beliebiger Stelle hinzugefügt: "+ll);
+			ll.removeFirst();
+			System.out.println("\terstes Element gelöscht: "+ll);
+			final long TimellEnde= System.currentTimeMillis();
+			long dauer = TimellEnde - TimellStart;
+			System.out.println("\tDauer der eigenen Liste: "
+					+dauer+" Millisekunden.");
+			zeitenll.put(i, new Object[] {dauer});
+			System.out.println("----------------------");
 		}
+		//Zeiten
 		System.out.println("\n---------Dauer der Listendurchläufe---------");
 		System.out.println("---Zeiten Liste 1---");
+		PrintWriter pwListe1 = new PrintWriter(new BufferedWriter(new FileWriter("Steurer_Zeiten.txt")));
 		for(int key : zeitenListe1.keySet()) {
 			System.out.println("Durchlauf: "+key + "\n\t " + Arrays.toString(zeitenListe1.get(key))+" Millisekunden" );
+			try {
+				pwListe1.println("Durchlauf: "+key + "\n\t " + Arrays.toString(zeitenListe1.get(key))+" Millisekunden" );
+				pwListe1.flush();
+				pwListe1.close();
+			}catch(Exception e) {
+				System.out.println(e);
+			}
 		}
 		System.out.println("\n---Zeiten Linked List von JAVA---");
+		PrintWriter pwll = new PrintWriter(new BufferedWriter(new FileWriter("Steurer_Zeiten_JavaList.txt")));
 		for(int key : zeitenll.keySet()) {
 			System.out.println("Durchlauf: "+key + "\n\t " + Arrays.toString(zeitenll.get(key))+" Millisekunden" );
+			try {
+				pwll.println("Durchlauf: "+key + "\n\t " + Arrays.toString(zeitenListe1.get(key))+" Millisekunden" );
+				pwll.flush();
+				pwll.close();
+			}catch(Exception e) {
+				System.out.println(e);
+			}
 		}
+
 
 	}
 
