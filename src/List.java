@@ -184,7 +184,7 @@ public class List {
 	}
 
 	//Vergleich mit LinkedList
-	final static int DURCHLÄUFE = 2;
+	final static int DURCHLÄUFE = 10;
 	static HashMap<Integer, Object[]> zeitenListe1 = new HashMap<Integer, Object[]>();
 	static HashMap<Integer, Object[]> zeitenll = new HashMap<Integer, Object[]>();
 
@@ -250,11 +250,12 @@ public class List {
 			try {
 				pwListe1.println("Durchlauf: "+key + "\n\t " + Arrays.toString(zeitenListe1.get(key))+" Millisekunden" );
 				pwListe1.flush();
-				pwListe1.close();
+
 			}catch(Exception e) {
 				System.out.println(e);
 			}
 		}
+		pwListe1.close();
 		System.out.println("\n---Zeiten Linked List von JAVA---");
 		PrintWriter pwll = new PrintWriter(new BufferedWriter(new FileWriter("Steurer_Zeiten_JavaList.txt")));
 		for(int key : zeitenll.keySet()) {
@@ -262,12 +263,12 @@ public class List {
 			try {
 				pwll.println("Durchlauf: "+key + "\n\t " + Arrays.toString(zeitenListe1.get(key))+" Millisekunden" );
 				pwll.flush();
-				pwll.close();
+
 			}catch(Exception e) {
 				System.out.println(e);
 			}
 		}
-
+		pwll.close();
 
 	}
 
