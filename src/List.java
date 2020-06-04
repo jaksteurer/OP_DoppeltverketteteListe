@@ -186,7 +186,7 @@ public class List {
 	}
 
 	//Vergleich mit LinkedList
-	final static int DURCHLÄUFE = 10;
+	final static int DURCHLÄUFE = 50;
 	static HashMap<Integer, Object[]> zeitenListe1 = new HashMap<Integer, Object[]>();
 	static HashMap<Integer, Object[]> zeitenll = new HashMap<Integer, Object[]>();
 
@@ -199,62 +199,92 @@ public class List {
 		//Eigene Linked List
 		//System.out.println("-------------------Liste1-------------------");
 		for(int i = 1; i<=DURCHLÄUFE;i++) {
-			final long TimeListe1Start = System.nanoTime();
+			final long Liste1Erstellen = System.nanoTime();
 			List liste1 = new List(5);
+			final long TimeListe1Ende = System.nanoTime();
 			//System.out.println("Liste erstellt + erster Eintrag: ");
 			//liste1.listeAusgeben();
+			final long Liste1EinfügenLetzteStelle = System.nanoTime();
 			liste1.einfügenLetzteStelle(4);
+			final long Liste1EinfügenLetzteStelleEnde = System.nanoTime();
+			final long Liste1EinfügenErsteStelle = System.nanoTime();
 			liste1.einfügenErsteStelle(1);
+			final long Liste1EinfügenErsteStelleEnde = System.nanoTime();
 			//System.out.println("head und tail hinzugefügt: ");
 			//liste1.listeAusgeben();
+			final long Liste1EinfügenBeliebigeStelle = System.nanoTime();
 			liste1.einfügenBeliebigeStelle(50, 1);
 			liste1.einfügenBeliebigeStelle(60, 3);
+			final long Liste1EinfügenBeliebigeStelleEnde = System.nanoTime();
 			//System.out.println("zwei Elemente an beliebiger Stelle hinzugefügt:");
 			//liste1.listeAusgeben();
 			//liste1.tauschen(2, 0);
 			//System.out.println("drittes Element mit erstem getauscht:");
 			//liste1.listeAusgeben();
+			final long Liste1löschenErsteStelle = System.nanoTime();
 			liste1.löschenErsteStelle();
+			final long Liste1löschenErsteStelleEnde = System.nanoTime();
 			//System.out.println("erstes Element gelöscht: ");
 			//liste1.listeAusgeben();
-			final long TimeListe1Ende = System.nanoTime();
-			long dauer = TimeListe1Ende - TimeListe1Start;
+			long dauerErstellen = TimeListe1Ende - Liste1Erstellen;
+			long dauerEinfügenLetzteStelle = Liste1EinfügenLetzteStelleEnde - Liste1EinfügenLetzteStelle;
+			long dauerEinfügenErsteStelle = Liste1EinfügenErsteStelleEnde - Liste1EinfügenErsteStelle;
+			long dauerEinfügenBeliebigeStelle =  Liste1EinfügenBeliebigeStelleEnde - Liste1EinfügenBeliebigeStelle;
+			long dauerLöschenErsteStelle =  Liste1löschenErsteStelleEnde - Liste1löschenErsteStelle;
 			//System.out.println("\tDauer der eigenen Liste: "
 				//	+dauer+" Millisekunden.");
-			zeitenListe1.put(i, new Object[] {dauer});
+			zeitenListe1.put(i, new Object[] {dauerErstellen, dauerEinfügenLetzteStelle, dauerEinfügenErsteStelle,
+							dauerEinfügenBeliebigeStelle, dauerLöschenErsteStelle});
 			//System.out.println("----------------------");
 		}
 		//JAVA Linked List
 		//System.out.println("\n--------------Java Linked List--------------");
 		for(int i = 1;i<=DURCHLÄUFE;i++) {
-			final long TimellStart = System.nanoTime();
+			final long llErstellen = System.nanoTime();
 			LinkedList<Integer> ll = new LinkedList<Integer>();
 			ll.add(1);
+			final long llErstellenEnde = System.nanoTime();
 			//System.out.println("\tListe erstellt + erster Eintrag: "+ ll);
+			final long llAddLast = System.nanoTime();
 			ll.addLast(8);
+			final long llAddLastEnde= System.nanoTime();
+			final long llAddFirst = System.nanoTime();
 			ll.addFirst(4);
+			final long llAddFirstEnde= System.nanoTime();
 			//System.out.println("\thead und tail hinzugefügt: "+ ll);
 			//.add(stelle, zahl)
+			final long llAddCertain = System.nanoTime();
 			ll.add(2, 6);
 			ll.add(3, 7);
+			final long llAddCertrainEnde= System.nanoTime();
 			//System.out.println("\tzwei Elemente an beliebiger Stelle hinzugefügt: "+ll);
+			final long llRemoveFirst = System.nanoTime();
 			ll.removeFirst();
+			final long llRemoveFirstEnde= System.nanoTime();
 			//System.out.println("\terstes Element gelöscht: "+ll);
-			final long TimellEnde= System.nanoTime();
-			long dauer = TimellEnde - TimellStart;
+			long dauerErstellen = llErstellenEnde - llErstellen;
+			long dauerAddLast = llAddLastEnde - llAddLast;
+			long dauerAddFirst = llAddFirstEnde - llAddFirst;
+			long dauerAddCertain = llAddCertrainEnde - llAddCertain;
+			long dauerRemoveFirst = llRemoveFirstEnde - llRemoveFirst;
 			//System.out.println("\tDauer der Java Liste: "
 				//	+dauer+" Millisekunden.");
-			zeitenll.put(i, new Object[] {dauer});
+			zeitenll.put(i, new Object[] {dauerErstellen, dauerAddLast, dauerAddFirst, dauerAddCertain, dauerRemoveFirst});
 			//System.out.println("----------------------");
 		}
 		//Zeiten
-		System.out.println("\n---------Dauer der Listendurchläufe---------");
-		System.err.println("---Zeiten der eigenen Liste---");
+		System.out.println("---------Dauer der Listendurchläufe---------");
+		System.err.println("LEGENDE: \nZeit 1:\tErstellen\nZeit 2:\tEinfügenLetzteStelle\nZeit 3:\tEinfügenErsteStelle"
+				+ "\nZeit 4:\tEinfügenBeliebigeStelle\nZeit 5:\tLöschenErsteStelle\n");
+		System.out.println("---Zeiten der eigenen Liste---");
 		//Textdatei erstellen
 		PrintWriter pwListe1 = new PrintWriter(new BufferedWriter(new FileWriter("Steurer_Zeiten_"+ sdf.format(timestamp) +".txt")));
+		pwListe1.println("LEGENDE: \nZeit 1:\tErstellen\nZeit 2:\tEinfügenLetzteStelle\nZeit 3:\tEinfügenErsteStelle"
+				+ "\nZeit 4:\tEinfügenBeliebigeStelle\nZeit 5:\tLöschenErsteStelle\n");
 		for(int key : zeitenListe1.keySet()) {
 			System.out.println("Durchlauf: "+key + "\n\t " + Arrays.toString(zeitenListe1.get(key))+" Nanosekunden" );
 			try {
+				
 				//Werte in die Textdatei laden
 				pwListe1.println("Durchlauf: "+key + "\n\t " + Arrays.toString(zeitenListe1.get(key))+" Nanosekunden" );
 				//Mit .flush(); werden die Dateien vom Puffer in die Textdatei geladen();
@@ -264,8 +294,12 @@ public class List {
 			}
 		}
 		pwListe1.close();
-		System.err.println("\n---Zeiten Linked List von JAVA---");
+		System.err.println("LEGENDE: \nZeit 1:\tErstellen\nZeit 2:\tEinfügenLetzteStelle\nZeit 3:\tEinfügenErsteStelle"
+				+ "\nZeit 4:\tEinfügenBeliebigeStelle\nZeit 5:\tLöschenErsteStelle\n");
+		System.out.println("---Zeiten Linked List von JAVA---");
 		PrintWriter pwll = new PrintWriter(new BufferedWriter(new FileWriter("Steurer_Zeiten_JavaList_"+ sdf.format(timestamp)+".txt")));
+		pwll.println("LEGENDE: \nZeit 1:\tErstellen\nZeit 2:\tEinfügenLetzteStelle\nZeit 3:\tEinfügenErsteStelle"
+				+ "\nZeit 4:\tEinfügenBeliebigeStelle\nZeit 5:\tLöschenErsteStelle\n");
 		for(int key : zeitenll.keySet()) {
 			System.out.println("Durchlauf: "+key + "\n\t " + Arrays.toString(zeitenll.get(key))+" Nanosekunden" );
 			try {
