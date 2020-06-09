@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -189,7 +190,8 @@ public class List {
 	final static int DURCHLÄUFE = 50;
 	static HashMap<Integer, Object[]> zeitenListe1 = new HashMap<Integer, Object[]>();
 	static HashMap<Integer, Object[]> zeitenll = new HashMap<Integer, Object[]>();
-
+	static HashMap<Integer, Object[]> zeitenArrayl = new HashMap<Integer, Object[]>();
+	
 	public static void main(String[]args) throws IOException {
 		
 		//Zeitstempel für Textdatei
@@ -272,6 +274,31 @@ public class List {
 			zeitenll.put(i, new Object[] {dauerErstellen, dauerAddLast, dauerAddFirst, dauerAddCertain, dauerRemoveFirst});
 			//System.out.println("----------------------");
 		}
+		
+		//System.out.println("\n--------------Array-List--------------");
+		for(int i = 1;i<=DURCHLÄUFE;i++) {
+			final long ArrErstellen = System.nanoTime();
+			ArrayList<Integer> Arrl = new ArrayList<Integer>();
+			Arrl.add(1);
+			final long ArrErstellenEnde = System.nanoTime();
+			final long ArrAddCertain = System.nanoTime();
+			Arrl.add(1, 6);
+			Arrl.add(2, 7);
+			final long ArrAddCertrainEnde= System.nanoTime();
+			//System.out.println("\tzwei Elemente an beliebiger Stelle hinzugefügt: "+ll);
+			final long ArrRemoveCertain = System.nanoTime();
+			Arrl.remove(2);
+			final long ArrRemoveCertainEnde= System.nanoTime();
+			//System.out.println("\terstes Element gelöscht: "+ll);
+			long dauerErstellen = ArrErstellenEnde - ArrErstellen;
+			long dauerAddCertain = ArrAddCertrainEnde - ArrAddCertain;
+			long dauerRemoveCertain = ArrRemoveCertainEnde - ArrRemoveCertain;
+			//System.out.println("\tDauer der Java Liste: "
+				//	+dauer+" Millisekunden.");
+			zeitenArrayl.put(i, new Object[] {dauerErstellen, dauerAddCertain, dauerRemoveCertain});
+			//System.out.println("----------------------");
+		}
+		
 		//Zeiten
 		System.out.println("---------Dauer der Listendurchläufe---------");
 		System.err.println("LEGENDE: \nZeit 1:\tErstellen\nZeit 2:\tEinfügenLetzteStelle\nZeit 3:\tEinfügenErsteStelle"
@@ -284,7 +311,6 @@ public class List {
 		for(int key : zeitenListe1.keySet()) {
 			System.out.println("Durchlauf: "+key + "\n\t " + Arrays.toString(zeitenListe1.get(key))+" Nanosekunden" );
 			try {
-				
 				//Werte in die Textdatei laden
 				pwListe1.println("Durchlauf: "+key + "\n\t " + Arrays.toString(zeitenListe1.get(key))+" Nanosekunden" );
 				//Mit .flush(); werden die Dateien vom Puffer in die Textdatei geladen();
@@ -298,18 +324,32 @@ public class List {
 				+ "\nZeit 4:\tEinfügenBeliebigeStelle\nZeit 5:\tLöschenErsteStelle\n");
 		System.out.println("---Zeiten Linked List von JAVA---");
 		PrintWriter pwll = new PrintWriter(new BufferedWriter(new FileWriter("Steurer_Zeiten_JavaList_"+ sdf.format(timestamp)+".txt")));
-		pwll.println("LEGENDE: \nZeit 1:\tErstellen\nZeit 2:\tEinfügenLetzteStelle\nZeit 3:\tEinfügenErsteStelle"
+		pwll.println("\nLEGENDE: \nZeit 1:\tErstellen\nZeit 2:\tEinfügenLetzteStelle\nZeit 3:\tEinfügenErsteStelle"
 				+ "\nZeit 4:\tEinfügenBeliebigeStelle\nZeit 5:\tLöschenErsteStelle\n");
 		for(int key : zeitenll.keySet()) {
 			System.out.println("Durchlauf: "+key + "\n\t " + Arrays.toString(zeitenll.get(key))+" Nanosekunden" );
 			try {
-				pwll.println("Durchlauf: "+key + "\n\t " + Arrays.toString(zeitenListe1.get(key))+" Nanosekunden" );
+				pwll.println("Durchlauf: "+key + "\n\t " + Arrays.toString(zeitenll.get(key))+" Nanosekunden" );
 				pwll.flush();
 			}catch(Exception e) {
 				System.out.println(e);
 			}
 		}
 		pwll.close();
+		System.err.println("LEGENDE: \nZeit 1:\tErstellen\nZeit 2:\tEinfügenBeliebigeStelle\nZeit 3:\tLöschenErsteStelle\n");
+		System.out.println("---Zeiten Linked List von JAVA---");
+		PrintWriter pwArr = new PrintWriter(new BufferedWriter(new FileWriter("Steurer_Zeiten_ArrayList_"+ sdf.format(timestamp)+".txt")));
+		pwArr.println("LEGENDE: \nZeit 1:\tErstellen\nZeit 2:\tEinfügenBeliebigeStelle\nZeit 3:\tLöschenErsteStelle\n");
+		for(int key : zeitenll.keySet()) {
+			System.out.println("Durchlauf: "+key + "\n\t " + Arrays.toString(zeitenArrayl.get(key))+" Nanosekunden" );
+			try {
+				pwArr.println("Durchlauf: "+key + "\n\t " + Arrays.toString(zeitenArrayl.get(key))+" Nanosekunden" );
+				pwArr.flush();
+			}catch(Exception e) {
+				System.out.println(e);
+			}
+		}
+		pwArr.close();
 	}
 
 }
