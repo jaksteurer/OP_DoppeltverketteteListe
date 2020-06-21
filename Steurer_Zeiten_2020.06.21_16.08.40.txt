@@ -1,0 +1,214 @@
+_________________________________
+LEGENDE: erste & zweite Zeile	| 
+Zeit 1:	Erstellen		|
+Zeit 2:	EinfügenLetzteStelle	|
+Zeit 3:	EinfügenErsteStelle	|
+Zeit 4:	EinfügenBeliebigeStelle	|
+Zeit 5:	LöschenErsteStelle	|
+				|
+LEGENDE dritte Zeile:		|
+Zeit 1: Erstellen		|
+Zeit 2: EinfügenBeliebigeStelle	|
+Zeit 3: LöschenBeliebigeStelle	|
+________________________________|
+
+Durchlauf: 1
+	 [558600, 5000, 2800, 3100, 2000] Nanosekunden
+	 [43900, 3000, 4300, 6900, 2800] Nanosekunden
+	 [51400, 3500, 3600] Nanosekunden
+Durchlauf: 2
+	 [400, 800, 600, 1500, 500] Nanosekunden
+	 [900, 400, 400, 1100, 600] Nanosekunden
+	 [2100, 800, 600] Nanosekunden
+Durchlauf: 3
+	 [200, 400, 500, 1000, 400] Nanosekunden
+	 [1600, 800, 800, 2300, 600] Nanosekunden
+	 [1300, 500, 300] Nanosekunden
+Durchlauf: 4
+	 [300, 400, 400, 900, 300] Nanosekunden
+	 [1600, 700, 1100, 4900, 500] Nanosekunden
+	 [1000, 500, 300] Nanosekunden
+Durchlauf: 5
+	 [100, 300, 400, 900, 300] Nanosekunden
+	 [3100, 1300, 1000, 8100, 600] Nanosekunden
+	 [900, 500, 200] Nanosekunden
+Durchlauf: 6
+	 [700, 1000, 800, 1500, 500] Nanosekunden
+	 [1100, 500, 400, 1100, 200] Nanosekunden
+	 [900, 500, 100] Nanosekunden
+Durchlauf: 7
+	 [200, 400, 500, 1100, 400] Nanosekunden
+	 [3000, 300, 300, 800, 200] Nanosekunden
+	 [900, 500, 200] Nanosekunden
+Durchlauf: 8
+	 [100, 300, 400, 900, 300] Nanosekunden
+	 [400, 300, 400, 700, 100] Nanosekunden
+	 [900, 500, 200] Nanosekunden
+Durchlauf: 9
+	 [200, 300, 400, 800, 300] Nanosekunden
+	 [400, 200, 300, 800, 200] Nanosekunden
+	 [900, 500, 200] Nanosekunden
+Durchlauf: 10
+	 [200, 300, 400, 800, 300] Nanosekunden
+	 [400, 300, 300, 700, 100] Nanosekunden
+	 [900, 500, 100] Nanosekunden
+Durchlauf: 11
+	 [200, 300, 500, 900, 400] Nanosekunden
+	 [400, 300, 300, 700, 100] Nanosekunden
+	 [900, 500, 300] Nanosekunden
+Durchlauf: 12
+	 [200, 300, 400, 2400, 400] Nanosekunden
+	 [400, 300, 200, 700, 200] Nanosekunden
+	 [900, 500, 200] Nanosekunden
+Durchlauf: 13
+	 [200, 300, 400, 1900, 300] Nanosekunden
+	 [400, 300, 200, 600, 100] Nanosekunden
+	 [900, 500, 200] Nanosekunden
+Durchlauf: 14
+	 [200, 300, 400, 800, 300] Nanosekunden
+	 [500, 300, 300, 600, 200] Nanosekunden
+	 [900, 400, 200] Nanosekunden
+Durchlauf: 15
+	 [200, 300, 400, 900, 300] Nanosekunden
+	 [300, 300, 300, 700, 100] Nanosekunden
+	 [900, 400, 200] Nanosekunden
+Durchlauf: 16
+	 [100, 300, 300, 900, 300] Nanosekunden
+	 [400, 200, 200, 600, 100] Nanosekunden
+	 [900, 500, 200] Nanosekunden
+Durchlauf: 17
+	 [200, 300, 400, 800, 300] Nanosekunden
+	 [400, 300, 300, 700, 100] Nanosekunden
+	 [800, 500, 200] Nanosekunden
+Durchlauf: 18
+	 [200, 300, 400, 900, 300] Nanosekunden
+	 [500, 300, 300, 700, 200] Nanosekunden
+	 [900, 500, 200] Nanosekunden
+Durchlauf: 19
+	 [200, 300, 400, 800, 300] Nanosekunden
+	 [3800, 300, 300, 700, 200] Nanosekunden
+	 [900, 500, 100] Nanosekunden
+Durchlauf: 20
+	 [200, 300, 400, 900, 300] Nanosekunden
+	 [400, 200, 200, 700, 200] Nanosekunden
+	 [900, 400, 200] Nanosekunden
+Durchlauf: 21
+	 [200, 300, 400, 900, 300] Nanosekunden
+	 [400, 300, 200, 700, 100] Nanosekunden
+	 [2700, 500, 200] Nanosekunden
+Durchlauf: 22
+	 [200, 300, 1100, 900, 300] Nanosekunden
+	 [400, 300, 300, 700, 100] Nanosekunden
+	 [900, 500, 200] Nanosekunden
+Durchlauf: 23
+	 [200, 400, 400, 800, 200] Nanosekunden
+	 [400, 300, 300, 700, 100] Nanosekunden
+	 [900, 500, 200] Nanosekunden
+Durchlauf: 24
+	 [200, 300, 400, 900, 300] Nanosekunden
+	 [400, 300, 200, 600, 200] Nanosekunden
+	 [900, 500, 100] Nanosekunden
+Durchlauf: 25
+	 [200, 300, 5855800, 6400, 800] Nanosekunden
+	 [400, 200, 200, 2100, 200] Nanosekunden
+	 [900, 500, 200] Nanosekunden
+Durchlauf: 26
+	 [300, 700, 4000, 7300, 400] Nanosekunden
+	 [400, 200, 300, 700, 200] Nanosekunden
+	 [900, 400, 100] Nanosekunden
+Durchlauf: 27
+	 [200, 400, 400, 900, 300] Nanosekunden
+	 [6600, 900, 2600, 3500, 800] Nanosekunden
+	 [800, 500, 200] Nanosekunden
+Durchlauf: 28
+	 [200, 400, 400, 900, 300] Nanosekunden
+	 [1600, 500, 400, 1400, 400] Nanosekunden
+	 [900, 500, 200] Nanosekunden
+Durchlauf: 29
+	 [200, 300, 300, 800, 300] Nanosekunden
+	 [700, 300, 200, 800, 200] Nanosekunden
+	 [1700, 500, 200] Nanosekunden
+Durchlauf: 30
+	 [200, 300, 400, 800, 300] Nanosekunden
+	 [500, 300, 300, 3400, 200] Nanosekunden
+	 [900, 500, 200] Nanosekunden
+Durchlauf: 31
+	 [100, 300, 400, 900, 300] Nanosekunden
+	 [500, 300, 300, 700, 200] Nanosekunden
+	 [900, 500, 200] Nanosekunden
+Durchlauf: 32
+	 [100, 300, 400, 3400, 300] Nanosekunden
+	 [400, 200, 300, 700, 200] Nanosekunden
+	 [900, 500, 200] Nanosekunden
+Durchlauf: 33
+	 [200, 300, 400, 800, 200] Nanosekunden
+	 [400, 300, 300, 700, 100] Nanosekunden
+	 [900, 500, 100] Nanosekunden
+Durchlauf: 34
+	 [200, 300, 400, 900, 300] Nanosekunden
+	 [400, 300, 300, 700, 200] Nanosekunden
+	 [800, 400, 200] Nanosekunden
+Durchlauf: 35
+	 [100, 200, 400, 4400, 300] Nanosekunden
+	 [400, 300, 300, 700, 200] Nanosekunden
+	 [800, 500, 200] Nanosekunden
+Durchlauf: 36
+	 [300, 300, 300, 800, 200] Nanosekunden
+	 [400, 300, 300, 700, 200] Nanosekunden
+	 [900, 500, 100] Nanosekunden
+Durchlauf: 37
+	 [200, 400, 400, 900, 200] Nanosekunden
+	 [400, 200, 300, 700, 100] Nanosekunden
+	 [900, 500, 200] Nanosekunden
+Durchlauf: 38
+	 [200, 300, 400, 900, 300] Nanosekunden
+	 [400, 200, 300, 700, 100] Nanosekunden
+	 [1600, 500, 200] Nanosekunden
+Durchlauf: 39
+	 [200, 300, 1000, 900, 300] Nanosekunden
+	 [400, 300, 200, 600, 100] Nanosekunden
+	 [34500, 2300, 700] Nanosekunden
+Durchlauf: 40
+	 [200, 300, 300, 800, 200] Nanosekunden
+	 [400, 300, 300, 700, 200] Nanosekunden
+	 [2900, 700, 300] Nanosekunden
+Durchlauf: 41
+	 [100, 500, 600, 900, 300] Nanosekunden
+	 [500, 300, 300, 700, 200] Nanosekunden
+	 [1300, 500, 100] Nanosekunden
+Durchlauf: 42
+	 [200, 400, 400, 900, 300] Nanosekunden
+	 [500, 300, 300, 800, 200] Nanosekunden
+	 [900, 500, 200] Nanosekunden
+Durchlauf: 43
+	 [100, 300, 400, 3800, 500] Nanosekunden
+	 [400, 300, 300, 700, 100] Nanosekunden
+	 [900, 500, 200] Nanosekunden
+Durchlauf: 44
+	 [300, 2700, 1400, 6500, 1000] Nanosekunden
+	 [400, 200, 300, 800, 200] Nanosekunden
+	 [800, 400, 200] Nanosekunden
+Durchlauf: 45
+	 [400, 600, 500, 1200, 300] Nanosekunden
+	 [500, 300, 300, 700, 200] Nanosekunden
+	 [900, 400, 100] Nanosekunden
+Durchlauf: 46
+	 [200, 400, 400, 900, 300] Nanosekunden
+	 [400, 300, 300, 800, 200] Nanosekunden
+	 [800, 500, 200] Nanosekunden
+Durchlauf: 47
+	 [100, 300, 400, 900, 300] Nanosekunden
+	 [500, 300, 300, 700, 200] Nanosekunden
+	 [800, 500, 200] Nanosekunden
+Durchlauf: 48
+	 [200, 300, 400, 900, 300] Nanosekunden
+	 [500, 300, 1300, 700, 100] Nanosekunden
+	 [900, 500, 200] Nanosekunden
+Durchlauf: 49
+	 [200, 300, 400, 900, 300] Nanosekunden
+	 [400, 300, 300, 800, 200] Nanosekunden
+	 [800, 500, 200] Nanosekunden
+Durchlauf: 50
+	 [200, 400, 400, 800, 300] Nanosekunden
+	 [400, 300, 200, 700, 200] Nanosekunden
+	 [900, 500, 100] Nanosekunden

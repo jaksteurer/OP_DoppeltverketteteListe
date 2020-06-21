@@ -300,19 +300,34 @@ public class List {
 		}
 		
 		//Zeiten
-		System.out.println("---------Dauer der Listendurchläufe---------");
-		System.err.println("LEGENDE: \nZeit 1:\tErstellen\nZeit 2:\tEinfügenLetzteStelle\nZeit 3:\tEinfügenErsteStelle"
-				+ "\nZeit 4:\tEinfügenBeliebigeStelle\nZeit 5:\tLöschenErsteStelle\n");
-		System.out.println("---Zeiten der eigenen Liste---");
+		System.err.println("_________________________________");
+		System.err.print("LEGENDE: erste & zweite Zeile\t| \nZeit 1:\tErstellen\t\t|\nZeit 2:"
+				+ "\tEinfügenLetzteStelle\t|\nZeit 3:\tEinfügenErsteStelle\t|"
+				+ "\nZeit 4:\tEinfügenBeliebigeStelle\t|\nZeit 5:\tLöschenErsteStelle\t|\n");
+		System.err.println("\t\t\t\t|\nLEGENDE dritte Zeile:\t\t|\nZeit 1: Erstellen\t\t|\nZeit 2: "
+				+ "EinfügenBeliebigeStelle\t|\nZeit 3: LöschenBeliebigeStelle\t|");
+		System.err.println("________________________________|\n");
 		//Textdatei erstellen
 		PrintWriter pwListe1 = new PrintWriter(new BufferedWriter(new FileWriter("Steurer_Zeiten_"+ sdf.format(timestamp) +".txt")));
-		pwListe1.println("LEGENDE: \nZeit 1:\tErstellen\nZeit 2:\tEinfügenLetzteStelle\nZeit 3:\tEinfügenErsteStelle"
-				+ "\nZeit 4:\tEinfügenBeliebigeStelle\nZeit 5:\tLöschenErsteStelle\n");
+		//pwListe1.println("");
+		pwListe1.println("_________________________________");
+		pwListe1.print("LEGENDE: erste & zweite Zeile\t| \nZeit 1:\tErstellen\t\t|\nZeit 2:"
+				+ "\tEinfügenLetzteStelle\t|\nZeit 3:\tEinfügenErsteStelle\t|"
+				+ "\nZeit 4:\tEinfügenBeliebigeStelle\t|\nZeit 5:\tLöschenErsteStelle\t|\n");
+		pwListe1.println("\t\t\t\t|\nLEGENDE dritte Zeile:\t\t|\nZeit 1: Erstellen\t\t|\nZeit 2: "
+				+ "EinfügenBeliebigeStelle\t|\nZeit 3: LöschenBeliebigeStelle\t|");
+		pwListe1.println("________________________________|\n");
+//		pwListe1.println("\nLEGENDE: \nZeit 1:\tErstellen\nZeit 2:\tEinfügenLetzteStelle\nZeit 3:\tEinfügenErsteStelle"
+//				+ "\nZeit 4:\tEinfügenBeliebigeStelle\nZeit 5:\tLöschenErsteStelle\n");
 		for(int key : zeitenListe1.keySet()) {
-			System.out.println("Durchlauf: "+key + "\n\t " + Arrays.toString(zeitenListe1.get(key))+" Nanosekunden" );
+			System.out.println("Durchlauf: "+key + "\n\t " + Arrays.toString(zeitenListe1.get(key))+" Nanosekunden"
+					+"\n\t "+ Arrays.toString(zeitenll.get(key))+" Nanosekunden"
+					+"\n\t "+ Arrays.toString(zeitenArrayl.get(key))+" Nanosekunden");
 			try {
 				//Werte in die Textdatei laden
-				pwListe1.println("Durchlauf: "+key + "\n\t " + Arrays.toString(zeitenListe1.get(key))+" Nanosekunden" );
+				pwListe1.println("Durchlauf: "+key + "\n\t " + Arrays.toString(zeitenListe1.get(key))+" Nanosekunden"
+						+"\n\t "+ Arrays.toString(zeitenll.get(key))+" Nanosekunden"
+						+"\n\t "+ Arrays.toString(zeitenArrayl.get(key))+" Nanosekunden");
 				//Mit .flush(); werden die Dateien vom Puffer in die Textdatei geladen();
 				pwListe1.flush(); 
 			}catch(Exception e) {
@@ -320,7 +335,8 @@ public class List {
 			}
 		}
 		pwListe1.close();
-		System.err.println("LEGENDE: \nZeit 1:\tErstellen\nZeit 2:\tEinfügenLetzteStelle\nZeit 3:\tEinfügenErsteStelle"
+
+/*		System.err.println("LEGENDE: \nZeit 1:\tErstellen\nZeit 2:\tEinfügenLetzteStelle\nZeit 3:\tEinfügenErsteStelle"
 				+ "\nZeit 4:\tEinfügenBeliebigeStelle\nZeit 5:\tLöschenErsteStelle\n");
 		System.out.println("---Zeiten Linked List von JAVA---");
 		PrintWriter pwll = new PrintWriter(new BufferedWriter(new FileWriter("Steurer_Zeiten_JavaList_"+ sdf.format(timestamp)+".txt")));
@@ -336,7 +352,8 @@ public class List {
 			}
 		}
 		pwll.close();
-		System.err.println("LEGENDE: \nZeit 1:\tErstellen\nZeit 2:\tEinfügenBeliebigeStelle\nZeit 3:\tLöschenErsteStelle\n");
+*/
+/*		System.err.println("LEGENDE: \nZeit 1:\tErstellen\nZeit 2:\tEinfügenBeliebigeStelle\nZeit 3:\tLöschenErsteStelle\n");
 		System.out.println("---Zeiten Linked List von JAVA---");
 		PrintWriter pwArr = new PrintWriter(new BufferedWriter(new FileWriter("Steurer_Zeiten_ArrayList_"+ sdf.format(timestamp)+".txt")));
 		pwArr.println("LEGENDE: \nZeit 1:\tErstellen\nZeit 2:\tEinfügenBeliebigeStelle\nZeit 3:\tLöschenErsteStelle\n");
@@ -349,7 +366,7 @@ public class List {
 				System.out.println(e);
 			}
 		}
-		pwArr.close();
+		pwArr.close(); */
 	}
 
 }
