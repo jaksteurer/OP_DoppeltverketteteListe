@@ -186,20 +186,18 @@ public class List {
 		}
 	}
 
-	//Vergleich mit LinkedList
 	final static int DURCHLÄUFE = 50;
 	static HashMap<Integer, Object[]> zeitenListe1 = new HashMap<Integer, Object[]>();
 	static HashMap<Integer, Object[]> zeitenll = new HashMap<Integer, Object[]>();
 	static HashMap<Integer, Object[]> zeitenArrayl = new HashMap<Integer, Object[]>();
-	
+
 	public static void main(String[]args) throws IOException {
-		
+
 		//Zeitstempel für Textdatei
 		final SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd_HH.mm.ss");
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());		
 
 		//Eigene Linked List
-		//System.out.println("-------------------Liste1-------------------");
 		for(int i = 1; i<=DURCHLÄUFE;i++) {
 			final long Liste1Erstellen = System.nanoTime();
 			List liste1 = new List(5);
@@ -233,14 +231,10 @@ public class List {
 			long dauerEinfügenErsteStelle = Liste1EinfügenErsteStelleEnde - Liste1EinfügenErsteStelle;
 			long dauerEinfügenBeliebigeStelle =  Liste1EinfügenBeliebigeStelleEnde - Liste1EinfügenBeliebigeStelle;
 			long dauerLöschenErsteStelle =  Liste1löschenErsteStelleEnde - Liste1löschenErsteStelle;
-			//System.out.println("\tDauer der eigenen Liste: "
-				//	+dauer+" Millisekunden.");
 			zeitenListe1.put(i, new Object[] {dauerErstellen, dauerEinfügenLetzteStelle, dauerEinfügenErsteStelle,
-							dauerEinfügenBeliebigeStelle, dauerLöschenErsteStelle});
-			//System.out.println("----------------------");
+					dauerEinfügenBeliebigeStelle, dauerLöschenErsteStelle});
 		}
 		//JAVA Linked List
-		//System.out.println("\n--------------Java Linked List--------------");
 		for(int i = 1;i<=DURCHLÄUFE;i++) {
 			final long llErstellen = System.nanoTime();
 			LinkedList<Integer> ll = new LinkedList<Integer>();
@@ -269,13 +263,9 @@ public class List {
 			long dauerAddFirst = llAddFirstEnde - llAddFirst;
 			long dauerAddCertain = llAddCertrainEnde - llAddCertain;
 			long dauerRemoveFirst = llRemoveFirstEnde - llRemoveFirst;
-			//System.out.println("\tDauer der Java Liste: "
-				//	+dauer+" Millisekunden.");
 			zeitenll.put(i, new Object[] {dauerErstellen, dauerAddLast, dauerAddFirst, dauerAddCertain, dauerRemoveFirst});
-			//System.out.println("----------------------");
 		}
-		
-		//System.out.println("\n--------------Array-List--------------");
+
 		for(int i = 1;i<=DURCHLÄUFE;i++) {
 			final long ArrErstellen = System.nanoTime();
 			ArrayList<Integer> Arrl = new ArrayList<Integer>();
@@ -293,80 +283,48 @@ public class List {
 			long dauerErstellen = ArrErstellenEnde - ArrErstellen;
 			long dauerAddCertain = ArrAddCertrainEnde - ArrAddCertain;
 			long dauerRemoveCertain = ArrRemoveCertainEnde - ArrRemoveCertain;
-			//System.out.println("\tDauer der Java Liste: "
-				//	+dauer+" Millisekunden.");
 			zeitenArrayl.put(i, new Object[] {dauerErstellen, dauerAddCertain, dauerRemoveCertain});
-			//System.out.println("----------------------");
 		}
-		
-		//Zeiten
-		System.err.println("_________________________________");
-		System.err.print("LEGENDE: erste & zweite Zeile\t| \nZeit 1:\tErstellen\t\t|\nZeit 2:"
-				+ "\tEinfügenLetzteStelle\t|\nZeit 3:\tEinfügenErsteStelle\t|"
-				+ "\nZeit 4:\tEinfügenBeliebigeStelle\t|\nZeit 5:\tLöschenErsteStelle\t|\n");
-		System.err.println("\t\t\t\t|\nLEGENDE dritte Zeile:\t\t|\nZeit 1: Erstellen\t\t|\nZeit 2: "
-				+ "EinfügenBeliebigeStelle\t|\nZeit 3: LöschenBeliebigeStelle\t|");
-		System.err.println("________________________________|\n");
-		//Textdatei erstellen
+
 		PrintWriter pwListe1 = new PrintWriter(new BufferedWriter(new FileWriter("Steurer_Zeiten_"+ sdf.format(timestamp) +".txt")));
-		//pwListe1.println("");
-		pwListe1.println("_________________________________");
-		pwListe1.print("LEGENDE: erste & zweite Zeile\t| \nZeit 1:\tErstellen\t\t|\nZeit 2:"
-				+ "\tEinfügenLetzteStelle\t|\nZeit 3:\tEinfügenErsteStelle\t|"
-				+ "\nZeit 4:\tEinfügenBeliebigeStelle\t|\nZeit 5:\tLöschenErsteStelle\t|\n");
-		pwListe1.println("\t\t\t\t|\nLEGENDE dritte Zeile:\t\t|\nZeit 1: Erstellen\t\t|\nZeit 2: "
-				+ "EinfügenBeliebigeStelle\t|\nZeit 3: LöschenBeliebigeStelle\t|");
-		pwListe1.println("________________________________|\n");
-//		pwListe1.println("\nLEGENDE: \nZeit 1:\tErstellen\nZeit 2:\tEinfügenLetzteStelle\nZeit 3:\tEinfügenErsteStelle"
-//				+ "\nZeit 4:\tEinfügenBeliebigeStelle\nZeit 5:\tLöschenErsteStelle\n");
+
+		pwListe1.println("\t\t\t\t\t|Eigene-Liste\t\t|Linked-List\t\t|Array-List|");
 		for(int key : zeitenListe1.keySet()) {
-			System.out.println("Durchlauf: "+key + "\n\t " + Arrays.toString(zeitenListe1.get(key))+" Nanosekunden"
-					+"\n\t "+ Arrays.toString(zeitenll.get(key))+" Nanosekunden"
-					+"\n\t "+ Arrays.toString(zeitenArrayl.get(key))+" Nanosekunden");
 			try {
-				//Werte in die Textdatei laden
-				pwListe1.println("Durchlauf: "+key + "\n\t " + Arrays.toString(zeitenListe1.get(key))+" Nanosekunden"
-						+"\n\t "+ Arrays.toString(zeitenll.get(key))+" Nanosekunden"
-						+"\n\t "+ Arrays.toString(zeitenArrayl.get(key))+" Nanosekunden");
-				//Mit .flush(); werden die Dateien vom Puffer in die Textdatei geladen();
-				pwListe1.flush(); 
-			}catch(Exception e) {
-				System.out.println(e);
+				pwListe1.println("\nDurchlauf: "+key+"\t------------------------|-----------------------|-----------------------|");
+			pwListe1.println("\tErstellen:\t\t\t|"+ (zeitenListe1.get(key)[0])+"\t\t\t|"
+					+(zeitenll.get(key)[0])+"\t\t\t|"+(zeitenArrayl.get(key)[0]));
+			pwListe1.println("\tEinfügenLetzteStelle:\t\t|"+ (zeitenListe1.get(key)[1])+"\t\t\t|"
+					+(zeitenll.get(key)[1])+"\t\t\t|"+(zeitenArrayl.get(key)[1]));
+			pwListe1.println("\tEinfügenErsteStelle:\t\t|"+ (zeitenListe1.get(key)[2])+"\t\t\t|"
+					+(zeitenll.get(key)[2])+"\t\t\t|"+(zeitenArrayl.get(key)[2]));
+			pwListe1.println("\tEinfügenBeliebigeStelle:\t|"+ (zeitenListe1.get(key)[3])+"\t\t\t|"
+					+(zeitenll.get(key)[3])+"\t\t\t|");
+			pwListe1.print("\tLöschenErsteStelle:\t\t|"+ (zeitenListe1.get(key)[4])+"\t\t\t|"
+					+(zeitenll.get(key)[4])+"\t\t\t|");
+			//Mit .flush(); werden die Dateien vom Puffer in die Textdatei geladen();
+			pwListe1.flush();
+			}catch(Exception e){
+				System.out.println("Fehler!!: "+e);
 			}
 		}
 		pwListe1.close();
 
-/*		System.err.println("LEGENDE: \nZeit 1:\tErstellen\nZeit 2:\tEinfügenLetzteStelle\nZeit 3:\tEinfügenErsteStelle"
-				+ "\nZeit 4:\tEinfügenBeliebigeStelle\nZeit 5:\tLöschenErsteStelle\n");
-		System.out.println("---Zeiten Linked List von JAVA---");
-		PrintWriter pwll = new PrintWriter(new BufferedWriter(new FileWriter("Steurer_Zeiten_JavaList_"+ sdf.format(timestamp)+".txt")));
-		pwll.println("\nLEGENDE: \nZeit 1:\tErstellen\nZeit 2:\tEinfügenLetzteStelle\nZeit 3:\tEinfügenErsteStelle"
-				+ "\nZeit 4:\tEinfügenBeliebigeStelle\nZeit 5:\tLöschenErsteStelle\n");
-		for(int key : zeitenll.keySet()) {
-			System.out.println("Durchlauf: "+key + "\n\t " + Arrays.toString(zeitenll.get(key))+" Nanosekunden" );
-			try {
-				pwll.println("Durchlauf: "+key + "\n\t " + Arrays.toString(zeitenll.get(key))+" Nanosekunden" );
-				pwll.flush();
-			}catch(Exception e) {
-				System.out.println(e);
-			}
+		//Consolenausgabe
+		System.out.println("\t\t\t\t\t|Eigene-Liste\t\t|Linked-List\t\t|Array-List|");
+		for(int key : zeitenListe1.keySet()) {
+			System.err.println("\nDurchlauf: "+key+"\t------------------------|-----------------------|-----------------------|");
+			System.out.println("\tErstellen:\t\t\t|"+ (zeitenListe1.get(key)[0])+"\t\t\t|"
+					+(zeitenll.get(key)[0])+"\t\t\t|"+(zeitenArrayl.get(key)[0]));
+			System.out.println("\tEinfügenLetzteStelle:\t\t|"+ (zeitenListe1.get(key)[1])+"\t\t\t|"
+					+(zeitenll.get(key)[1])+"\t\t\t|"+(zeitenArrayl.get(key)[1]));
+			System.out.println("\tEinfügenErsteStelle:\t\t|"+ (zeitenListe1.get(key)[2])+"\t\t\t|"
+					+(zeitenll.get(key)[2])+"\t\t\t|"+(zeitenArrayl.get(key)[2]));
+			System.out.println("\tEinfügenBeliebigeStelle:\t|"+ (zeitenListe1.get(key)[3])+"\t\t\t|"
+					+(zeitenll.get(key)[3])+"\t\t\t|");
+			System.out.print("\tLöschenErsteStelle:\t\t|"+ (zeitenListe1.get(key)[4])+"\t\t\t|"
+					+(zeitenll.get(key)[4])+"\t\t\t|");
 		}
-		pwll.close();
-*/
-/*		System.err.println("LEGENDE: \nZeit 1:\tErstellen\nZeit 2:\tEinfügenBeliebigeStelle\nZeit 3:\tLöschenErsteStelle\n");
-		System.out.println("---Zeiten Linked List von JAVA---");
-		PrintWriter pwArr = new PrintWriter(new BufferedWriter(new FileWriter("Steurer_Zeiten_ArrayList_"+ sdf.format(timestamp)+".txt")));
-		pwArr.println("LEGENDE: \nZeit 1:\tErstellen\nZeit 2:\tEinfügenBeliebigeStelle\nZeit 3:\tLöschenErsteStelle\n");
-		for(int key : zeitenll.keySet()) {
-			System.out.println("Durchlauf: "+key + "\n\t " + Arrays.toString(zeitenArrayl.get(key))+" Nanosekunden" );
-			try {
-				pwArr.println("Durchlauf: "+key + "\n\t " + Arrays.toString(zeitenArrayl.get(key))+" Nanosekunden" );
-				pwArr.flush();
-			}catch(Exception e) {
-				System.out.println(e);
-			}
-		}
-		pwArr.close(); */
 	}
 
 }
