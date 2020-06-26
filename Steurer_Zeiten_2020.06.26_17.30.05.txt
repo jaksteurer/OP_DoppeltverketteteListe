@@ -1,0 +1,12 @@
+Durchläufe: 1000000
+				|	Eigene-Liste	|	Linked-List	|	Array-List	|
+--------------------------------|-----------------------|-----------------------|-----------------------|
+EinfügenLetzteStelle:		|	50 ns		|	34 ns		|	60 ns		|
+EinfügenErsteStelle:		|	55 ns		|	34 ns		|	58 ns		|
+EinfügenBeliebigeStelle:	|	50 ns		|	37 ns		|	59 ns		|
+tauschen:			|	43 ns		|	37 ns		|	/		|
+länge:				|	35 ns		|	30 ns		|	31 ns		|
+LöschenLetzteStelle:		|	43 ns		|	32 ns		|	/		|
+LöschenErsteStelle:		|	37 ns		|	32 ns		|	/		|
+LöschenBeliebigeStelle:		|	43 ns		|	33 ns		|	59 ns		|
+--------------------------------|-----------------------|-----------------------|-----------------------|

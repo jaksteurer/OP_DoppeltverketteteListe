@@ -5,11 +5,10 @@ import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.LinkedList;
 
-public class List {
+public class List{
 
 	public Elem tail;
 	public Elem head;
@@ -186,145 +185,258 @@ public class List {
 		}
 	}
 
-	final static int DURCHLÄUFE = 50;
-	static HashMap<Integer, Object[]> zeitenListe1 = new HashMap<Integer, Object[]>();
-	static HashMap<Integer, Object[]> zeitenll = new HashMap<Integer, Object[]>();
-	static HashMap<Integer, Object[]> zeitenArrayl = new HashMap<Integer, Object[]>();
+	final static long DURCHLÄUFE = 1000000;
 
-	public static void main(String[]args) throws IOException {
+	static long zeitenListe1[];
+	static long zeitenll[];
+	static long zeitenArrayl[];
 
-		//Zeitstempel für Textdatei
-		final SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd_HH.mm.ss");
-		Timestamp timestamp = new Timestamp(System.currentTimeMillis());		
+	public static long[] zeitmessungEigeneList() {
+		long gesamtEinfügenLetzteStelle = 0;
+		long gesamtEinfügenErsteStelle = 0;
+		long gesamtEinfügenBeliebigeStelle = 0;
+		long gesamttauschen = 0;
+		long gesamtlänge = 0;
+		long gesamtlöschenLetzteStelle = 0;
+		long gesamtlöschenErsteStelle = 0;
+		long gesamtlöschenBeliebigeStelle = 0;
 
-		//Eigene Linked List
 		for(int i = 1; i<=DURCHLÄUFE;i++) {
-			final long Liste1Erstellen = System.nanoTime();
 			List liste1 = new List(5);
-			final long TimeListe1Ende = System.nanoTime();
-			//System.out.println("Liste erstellt + erster Eintrag: ");
-			//liste1.listeAusgeben();
 			final long Liste1EinfügenLetzteStelle = System.nanoTime();
 			liste1.einfügenLetzteStelle(4);
 			final long Liste1EinfügenLetzteStelleEnde = System.nanoTime();
 			final long Liste1EinfügenErsteStelle = System.nanoTime();
 			liste1.einfügenErsteStelle(1);
 			final long Liste1EinfügenErsteStelleEnde = System.nanoTime();
-			//System.out.println("head und tail hinzugefügt: ");
-			//liste1.listeAusgeben();
 			final long Liste1EinfügenBeliebigeStelle = System.nanoTime();
 			liste1.einfügenBeliebigeStelle(50, 1);
-			liste1.einfügenBeliebigeStelle(60, 3);
 			final long Liste1EinfügenBeliebigeStelleEnde = System.nanoTime();
-			//System.out.println("zwei Elemente an beliebiger Stelle hinzugefügt:");
-			//liste1.listeAusgeben();
-			//liste1.tauschen(2, 0);
-			//System.out.println("drittes Element mit erstem getauscht:");
-			//liste1.listeAusgeben();
+			final long Liste1tauschen = System.nanoTime();
+			liste1.tauschen(1, 2);
+			final long Liste1tauschenEnde = System.nanoTime();
+			final long Liste1länge = System.nanoTime();
+			liste1.listenLänge();
+			final long Liste1längeEnde = System.nanoTime();
+			final long Liste1löschenLetzteStelle = System.nanoTime();
+			liste1.löschenLetzteStelle();
+			final long Liste1löschenLetzteStelleEnde = System.nanoTime();
 			final long Liste1löschenErsteStelle = System.nanoTime();
 			liste1.löschenErsteStelle();
 			final long Liste1löschenErsteStelleEnde = System.nanoTime();
-			//System.out.println("erstes Element gelöscht: ");
-			//liste1.listeAusgeben();
-			long dauerErstellen = TimeListe1Ende - Liste1Erstellen;
+			final long Liste1löschenBeliebigeStelle = System.nanoTime();
+			liste1.löschenBeliebigeStelle(1);
+			final long Liste1löschenBeliebigeStelleEnde = System.nanoTime();
+
 			long dauerEinfügenLetzteStelle = Liste1EinfügenLetzteStelleEnde - Liste1EinfügenLetzteStelle;
 			long dauerEinfügenErsteStelle = Liste1EinfügenErsteStelleEnde - Liste1EinfügenErsteStelle;
 			long dauerEinfügenBeliebigeStelle =  Liste1EinfügenBeliebigeStelleEnde - Liste1EinfügenBeliebigeStelle;
+			long dauertauschen = Liste1tauschenEnde - Liste1tauschen;
+			long dauerlänge = Liste1längeEnde - Liste1länge;
+			long dauerLöschenLetzteStelle = Liste1löschenLetzteStelleEnde - Liste1löschenLetzteStelle;
 			long dauerLöschenErsteStelle =  Liste1löschenErsteStelleEnde - Liste1löschenErsteStelle;
-			zeitenListe1.put(i, new Object[] {dauerErstellen, dauerEinfügenLetzteStelle, dauerEinfügenErsteStelle,
-					dauerEinfügenBeliebigeStelle, dauerLöschenErsteStelle});
+			long dauerLöschenBeliebigeStelle = Liste1löschenBeliebigeStelleEnde - Liste1löschenBeliebigeStelle;
+
+			gesamtEinfügenLetzteStelle += dauerEinfügenLetzteStelle;
+			gesamtEinfügenErsteStelle += dauerEinfügenErsteStelle;
+			gesamtEinfügenBeliebigeStelle += dauerEinfügenBeliebigeStelle;
+			gesamttauschen += dauertauschen;
+			gesamtlänge += dauerlänge ;
+			gesamtlöschenLetzteStelle += dauerLöschenLetzteStelle;
+			gesamtlöschenErsteStelle += dauerLöschenErsteStelle;
+			gesamtlöschenBeliebigeStelle += dauerLöschenBeliebigeStelle;
+
+			zeitenListe1 = new long[] {gesamtEinfügenLetzteStelle, gesamtEinfügenErsteStelle, gesamtEinfügenBeliebigeStelle,
+					gesamttauschen,gesamtlänge, gesamtlöschenLetzteStelle, gesamtlöschenErsteStelle, gesamtlöschenBeliebigeStelle};
 		}
-		//JAVA Linked List
+		return zeitenListe1;
+	}
+	public static long[] zeitmessungLinkedList(){
+		long gesamtEinfügenLetzteStelle = 0;
+		long gesamtEinfügenErsteStelle = 0;
+		long gesamtEinfügenBeliebigeStelle = 0;
+		long gesamttauschen = 0;
+		long gesamtlänge = 0;
+		long gesamtlöschenLetzteStelle = 0;
+		long gesamtlöschenErsteStelle = 0;
+		long gesamtlöschenBeliebigeStelle = 0;
+
 		for(int i = 1;i<=DURCHLÄUFE;i++) {
-			final long llErstellen = System.nanoTime();
 			LinkedList<Integer> ll = new LinkedList<Integer>();
-			ll.add(1);
-			final long llErstellenEnde = System.nanoTime();
-			//System.out.println("\tListe erstellt + erster Eintrag: "+ ll);
+			ll.add(2);
 			final long llAddLast = System.nanoTime();
 			ll.addLast(8);
 			final long llAddLastEnde= System.nanoTime();
 			final long llAddFirst = System.nanoTime();
 			ll.addFirst(4);
 			final long llAddFirstEnde= System.nanoTime();
-			//System.out.println("\thead und tail hinzugefügt: "+ ll);
-			//.add(stelle, zahl)
 			final long llAddCertain = System.nanoTime();
 			ll.add(2, 6);
-			ll.add(3, 7);
-			final long llAddCertrainEnde= System.nanoTime();
-			//System.out.println("\tzwei Elemente an beliebiger Stelle hinzugefügt: "+ll);
+			final long llAddCertainEnde= System.nanoTime();
+			final long llSwap = System.nanoTime();
+			//--------------------------------------------fehlt noch-----------------------------
+			Collections.swap(ll,1,2);
+			final long llSwapEnde = System.nanoTime();
+			final long llLänge = System.nanoTime();
+			ll.size();
+			final long llLängeEnde = System.nanoTime();
+			final long llRemoveLast = System.nanoTime();
+			ll.removeLast();
+			final long llRemoveLastEnde= System.nanoTime();
 			final long llRemoveFirst = System.nanoTime();
 			ll.removeFirst();
 			final long llRemoveFirstEnde= System.nanoTime();
-			//System.out.println("\terstes Element gelöscht: "+ll);
-			long dauerErstellen = llErstellenEnde - llErstellen;
-			long dauerAddLast = llAddLastEnde - llAddLast;
-			long dauerAddFirst = llAddFirstEnde - llAddFirst;
-			long dauerAddCertain = llAddCertrainEnde - llAddCertain;
-			long dauerRemoveFirst = llRemoveFirstEnde - llRemoveFirst;
-			zeitenll.put(i, new Object[] {dauerErstellen, dauerAddLast, dauerAddFirst, dauerAddCertain, dauerRemoveFirst});
+			final long llRemoveCertain = System.nanoTime();
+			ll.remove(0);
+			final long llRemoveCertainEnde= System.nanoTime();
+
+			long dauerEinfügenLetzteStelle = llAddLastEnde - llAddLast;
+			long dauerEinfügenErsteStelle = llAddFirstEnde - llAddFirst;
+			long dauerEinfügenBeliebigeStelle =  llAddCertainEnde - llAddCertain;
+			long dauertauschen = llSwapEnde - llSwap;
+			long dauerlänge = llLängeEnde - llLänge;
+			long dauerLöschenLetzteStelle = llRemoveLastEnde - llRemoveLast;
+			long dauerLöschenErsteStelle =  llRemoveFirstEnde - llRemoveFirst;
+			long dauerLöschenBeliebigeStelle = llRemoveCertainEnde - llRemoveCertain;
+
+			gesamtEinfügenLetzteStelle += dauerEinfügenLetzteStelle;
+			gesamtEinfügenErsteStelle += dauerEinfügenErsteStelle;
+			gesamtEinfügenBeliebigeStelle += dauerEinfügenBeliebigeStelle;
+			gesamttauschen += dauertauschen;
+			gesamtlänge += dauerlänge ;
+			gesamtlöschenLetzteStelle += dauerLöschenLetzteStelle;
+			gesamtlöschenErsteStelle += dauerLöschenErsteStelle;
+			gesamtlöschenBeliebigeStelle += dauerLöschenBeliebigeStelle;
+
+			zeitenll = new long[] {gesamtEinfügenLetzteStelle, gesamtEinfügenErsteStelle, gesamtEinfügenBeliebigeStelle,
+					gesamttauschen, gesamtlänge, gesamtlöschenLetzteStelle, gesamtlöschenErsteStelle, gesamtlöschenBeliebigeStelle};
 		}
+		return zeitenll;
+	}
+	public static long[] zeitmessungArrayList() {
+		long gesamtEinfügenLetzteStelle = 0;
+		long gesamtEinfügenErsteStelle = 0;
+		long gesamtEinfügenBeliebigeStelle = 0;
+		long gesamttauschen = 0;
+		long gesamtlänge = 0;
+		long gesamtlöschenLetzteStelle = 0;
+		long gesamtlöschenErsteStelle = 0;
+		long gesamtlöschenBeliebigeStelle = 0;
 
 		for(int i = 1;i<=DURCHLÄUFE;i++) {
-			final long ArrErstellen = System.nanoTime();
 			ArrayList<Integer> Arrl = new ArrayList<Integer>();
 			Arrl.add(1);
-			final long ArrErstellenEnde = System.nanoTime();
-			final long ArrAddCertain = System.nanoTime();
-			Arrl.add(1, 6);
-			Arrl.add(2, 7);
+			Arrl.add(3);
+			final long ArrEinfügenLetzteStelle = System.nanoTime();
+			//Zahl, Stelle
+			Arrl.add(1, 1);
+			final long ArrEinfügenLetzteStelleEnde = System.nanoTime();
+			final long ArrEinfügenErsteStelle = System.nanoTime();
+			Arrl.add(1, 0);
+			final long ArrEinfügenErsteStelleEnde = System.nanoTime();
+			final long ArrAddCertrain= System.nanoTime();
+			Arrl.add(1, 1);
 			final long ArrAddCertrainEnde= System.nanoTime();
-			//System.out.println("\tzwei Elemente an beliebiger Stelle hinzugefügt: "+ll);
-			final long ArrRemoveCertain = System.nanoTime();
+			final long Arrlänge= System.nanoTime();
+			Arrl.size();
+			final long ArrlängeEnde= System.nanoTime();
+			final long ArrRemoveCertain= System.nanoTime();
+			//Stelle
 			Arrl.remove(2);
-			final long ArrRemoveCertainEnde= System.nanoTime();
-			//System.out.println("\terstes Element gelöscht: "+ll);
-			long dauerErstellen = ArrErstellenEnde - ArrErstellen;
-			long dauerAddCertain = ArrAddCertrainEnde - ArrAddCertain;
-			long dauerRemoveCertain = ArrRemoveCertainEnde - ArrRemoveCertain;
-			zeitenArrayl.put(i, new Object[] {dauerErstellen, dauerAddCertain, dauerRemoveCertain});
-		}
+			final long ArrRemoveCertainEnde= System.nanoTime();			
 
-		PrintWriter pwListe1 = new PrintWriter(new BufferedWriter(new FileWriter("Steurer_Zeiten_"+ sdf.format(timestamp) +".txt")));
+			long dauerEinfügenLetzteStelle = ArrEinfügenLetzteStelleEnde - ArrEinfügenLetzteStelle;
+			long dauerEinfügenErsteStelle = ArrEinfügenErsteStelleEnde - ArrEinfügenErsteStelle;
+			long dauerEinfügenBeliebigeStelle =  ArrAddCertrainEnde - ArrAddCertrain;
+			long dauertauschen = 0;
+			long dauerlänge = ArrlängeEnde - Arrlänge;
+			long dauerLöschenLetzteStelle = 0;
+			long dauerLöschenErsteStelle =  0;
+			long dauerLöschenBeliebigeStelle = ArrRemoveCertainEnde - ArrRemoveCertain;
 
-		pwListe1.println("\t\t\t\t\t|Eigene-Liste\t\t|Linked-List\t\t|Array-List|");
-		for(int key : zeitenListe1.keySet()) {
-			try {
-				pwListe1.println("\nDurchlauf: "+key+"\t------------------------|-----------------------|-----------------------|");
-			pwListe1.println("\tErstellen:\t\t\t|"+ (zeitenListe1.get(key)[0])+"\t\t\t|"
-					+(zeitenll.get(key)[0])+"\t\t\t|"+(zeitenArrayl.get(key)[0]));
-			pwListe1.println("\tEinfügenLetzteStelle:\t\t|"+ (zeitenListe1.get(key)[1])+"\t\t\t|"
-					+(zeitenll.get(key)[1])+"\t\t\t|"+(zeitenArrayl.get(key)[1]));
-			pwListe1.println("\tEinfügenErsteStelle:\t\t|"+ (zeitenListe1.get(key)[2])+"\t\t\t|"
-					+(zeitenll.get(key)[2])+"\t\t\t|"+(zeitenArrayl.get(key)[2]));
-			pwListe1.println("\tEinfügenBeliebigeStelle:\t|"+ (zeitenListe1.get(key)[3])+"\t\t\t|"
-					+(zeitenll.get(key)[3])+"\t\t\t|");
-			pwListe1.print("\tLöschenErsteStelle:\t\t|"+ (zeitenListe1.get(key)[4])+"\t\t\t|"
-					+(zeitenll.get(key)[4])+"\t\t\t|");
-			//Mit .flush(); werden die Dateien vom Puffer in die Textdatei geladen();
-			pwListe1.flush();
-			}catch(Exception e){
-				System.out.println("Fehler!!: "+e);
-			}
-		}
-		pwListe1.close();
+			gesamtEinfügenLetzteStelle += dauerEinfügenLetzteStelle;
+			gesamtEinfügenErsteStelle += dauerEinfügenErsteStelle;
+			gesamtEinfügenBeliebigeStelle += dauerEinfügenBeliebigeStelle;
+			gesamttauschen += dauertauschen;
+			gesamtlänge += dauerlänge ;
+			gesamtlöschenLetzteStelle += dauerLöschenLetzteStelle;
+			gesamtlöschenErsteStelle += dauerLöschenErsteStelle;
+			gesamtlöschenBeliebigeStelle += dauerLöschenBeliebigeStelle;
 
-		//Consolenausgabe
-		System.out.println("\t\t\t\t\t|Eigene-Liste\t\t|Linked-List\t\t|Array-List|");
-		for(int key : zeitenListe1.keySet()) {
-			System.err.println("\nDurchlauf: "+key+"\t------------------------|-----------------------|-----------------------|");
-			System.out.println("\tErstellen:\t\t\t|"+ (zeitenListe1.get(key)[0])+"\t\t\t|"
-					+(zeitenll.get(key)[0])+"\t\t\t|"+(zeitenArrayl.get(key)[0]));
-			System.out.println("\tEinfügenLetzteStelle:\t\t|"+ (zeitenListe1.get(key)[1])+"\t\t\t|"
-					+(zeitenll.get(key)[1])+"\t\t\t|"+(zeitenArrayl.get(key)[1]));
-			System.out.println("\tEinfügenErsteStelle:\t\t|"+ (zeitenListe1.get(key)[2])+"\t\t\t|"
-					+(zeitenll.get(key)[2])+"\t\t\t|"+(zeitenArrayl.get(key)[2]));
-			System.out.println("\tEinfügenBeliebigeStelle:\t|"+ (zeitenListe1.get(key)[3])+"\t\t\t|"
-					+(zeitenll.get(key)[3])+"\t\t\t|");
-			System.out.print("\tLöschenErsteStelle:\t\t|"+ (zeitenListe1.get(key)[4])+"\t\t\t|"
-					+(zeitenll.get(key)[4])+"\t\t\t|");
+			zeitenArrayl = new long[] {gesamtEinfügenLetzteStelle, gesamtEinfügenErsteStelle, gesamtEinfügenBeliebigeStelle,
+					gesamttauschen, gesamtlänge, gesamtlöschenLetzteStelle, gesamtlöschenErsteStelle, gesamtlöschenBeliebigeStelle};
 		}
+		return zeitenArrayl;
 	}
+	public static void tabelle() {
+		zeitmessungEigeneList();
+		zeitmessungLinkedList();
+		zeitmessungArrayList();
+		System.out.println("Durchläufe: "+DURCHLÄUFE);
+		System.out.println("\t\t\t\t|\tEigene-Liste\t|\tLinked-List\t|\tArray-List\t|");
+		System.out.println("--------------------------------|-----------------------|-----------------------|-----------------------|");
+		System.out.println("EinfügenLetzteStelle:\t\t|\t"+ (zeitenListe1[0]/DURCHLÄUFE) +" ns\t\t|\t"
+				+(zeitenll[0]/DURCHLÄUFE)+" ns\t\t|\t"+ (zeitenArrayl[0]/DURCHLÄUFE)+" ns\t\t|");
+		System.out.println("EinfügenErsteStelle:\t\t|\t"+ (zeitenListe1[1]/DURCHLÄUFE)+" ns\t\t|\t"
+				+(zeitenll[1]/DURCHLÄUFE)+" ns\t\t|\t"+ (zeitenArrayl[1]/DURCHLÄUFE)+" ns\t\t|");
+		System.out.println("EinfügenBeliebigeStelle:\t|\t"+ (zeitenListe1[2]/DURCHLÄUFE)+" ns\t\t|\t"
+				+(zeitenll[2]/DURCHLÄUFE)+" ns\t\t|\t"+ (zeitenArrayl[2]/DURCHLÄUFE)+" ns\t\t|");
+		System.out.println("tauschen:\t\t\t|\t"+ (zeitenListe1[3]/DURCHLÄUFE)+" ns\t\t|\t"
+				+(zeitenll[3]/DURCHLÄUFE)+" ns\t\t|\t"+ "/"/*(zeitenArrayl[3]/DURCHLÄUFE)*/+"\t\t|");
+		System.out.println("länge:\t\t\t\t|\t"+ (zeitenListe1[4]/DURCHLÄUFE)+" ns\t\t|\t"
+				+(zeitenll[4]/DURCHLÄUFE)+" ns\t\t|\t"+ (zeitenArrayl[4]/DURCHLÄUFE)+" ns\t\t|");
+		System.out.println("LöschenLetzteStelle:\t\t|\t"+ (zeitenListe1[5]/DURCHLÄUFE)+" ns\t\t|\t"
+				+(zeitenll[5]/DURCHLÄUFE)+" ns\t\t|\t"+ "/"/*(zeitenArrayl[5]/DURCHLÄUFE)*/+"\t\t|");
+		System.out.println("LöschenErsteStelle:\t\t|\t"+ (zeitenListe1[6]/DURCHLÄUFE)+" ns\t\t|\t"
+				+(zeitenll[6]/DURCHLÄUFE)+" ns\t\t|\t"+ "/"/*(zeitenArrayl[6]/DURCHLÄUFE)*/+"\t\t|");
+		System.out.println("LöschenBeliebigeStelle:\t\t|\t"+ (zeitenListe1[7]/DURCHLÄUFE)+" ns\t\t|\t"
+				+(zeitenll[7]/DURCHLÄUFE)+" ns\t\t|\t"+ (zeitenArrayl[7]/DURCHLÄUFE)+" ns\t\t|");
+		System.out.println("--------------------------------|-----------------------|-----------------------|-----------------------|");
+	}
+	public static void tabelleInTextDatei() {
+		//Zeitstempel für Textdatei
+		final SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd_HH.mm.ss");
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		
+		PrintWriter txt;
+		try {
+			txt = new PrintWriter(new BufferedWriter(new FileWriter("Steurer_Zeiten_"+ sdf.format(timestamp) +".txt")));
+			txt.println("Durchläufe: "+DURCHLÄUFE);
+			txt.println("\t\t\t\t|\tEigene-Liste\t|\tLinked-List\t|\tArray-List\t|");
+			txt.println("--------------------------------|-----------------------|-----------------------|-----------------------|");
+			zeitmessungEigeneList();
+			zeitmessungLinkedList();
+			zeitmessungArrayList();
+			txt.println("EinfügenLetzteStelle:\t\t|\t"+ (zeitenListe1[0]/DURCHLÄUFE) +" ns\t\t|\t"
+					+(zeitenll[0]/DURCHLÄUFE)+" ns\t\t|\t"+ (zeitenArrayl[0]/DURCHLÄUFE)+" ns\t\t|");
+			txt.println("EinfügenErsteStelle:\t\t|\t"+ (zeitenListe1[1]/DURCHLÄUFE)+" ns\t\t|\t"
+					+(zeitenll[1]/DURCHLÄUFE)+" ns\t\t|\t"+ (zeitenArrayl[1]/DURCHLÄUFE)+" ns\t\t|");
+			txt.println("EinfügenBeliebigeStelle:\t|\t"+ (zeitenListe1[2]/DURCHLÄUFE)+" ns\t\t|\t"
+					+(zeitenll[2]/DURCHLÄUFE)+" ns\t\t|\t"+ (zeitenArrayl[2]/DURCHLÄUFE)+" ns\t\t|");
+			txt.println("tauschen:\t\t\t|\t"+ (zeitenListe1[3]/DURCHLÄUFE)+" ns\t\t|\t"
+					+(zeitenll[3]/DURCHLÄUFE)+" ns\t\t|\t"+ "/"/*(zeitenArrayl[3]/DURCHLÄUFE)*/+"\t\t|");
+			txt.println("länge:\t\t\t\t|\t"+ (zeitenListe1[4]/DURCHLÄUFE)+" ns\t\t|\t"
+					+(zeitenll[4]/DURCHLÄUFE)+" ns\t\t|\t"+ (zeitenArrayl[4]/DURCHLÄUFE)+" ns\t\t|");
+			txt.println("LöschenLetzteStelle:\t\t|\t"+ (zeitenListe1[5]/DURCHLÄUFE)+" ns\t\t|\t"
+					+(zeitenll[5]/DURCHLÄUFE)+" ns\t\t|\t"+ "/"/*(zeitenArrayl[5]/DURCHLÄUFE)*/+"\t\t|");
+			txt.println("LöschenErsteStelle:\t\t|\t"+ (zeitenListe1[6]/DURCHLÄUFE)+" ns\t\t|\t"
+					+(zeitenll[6]/DURCHLÄUFE)+" ns\t\t|\t"+ "/"/*(zeitenArrayl[6]/DURCHLÄUFE)*/+"\t\t|");
+			txt.println("LöschenBeliebigeStelle:\t\t|\t"+ (zeitenListe1[7]/DURCHLÄUFE)+" ns\t\t|\t"
+					+(zeitenll[7]/DURCHLÄUFE)+" ns\t\t|\t"+ (zeitenArrayl[7]/DURCHLÄUFE)+" ns\t\t|");
+			txt.println("--------------------------------|-----------------------|-----------------------|-----------------------|");
+			//Mit .flush(); werden die Dateien vom Puffer in die Textdatei geladen();
+			txt.flush();
+			txt.close();
+		} catch (IOException e) {
+			System.out.println("[tabelleInTextDatei()]:"+ e);
+		}
+	}	
 
+	public static void main(String[]args) {
+		//Consolenausgabe
+		tabelle();
+		//Ausgabe in Textdatei
+		tabelleInTextDatei();
+	}
+	
 }
