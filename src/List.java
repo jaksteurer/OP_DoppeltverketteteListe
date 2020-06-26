@@ -274,7 +274,6 @@ public class List{
 			ll.add(2, 6);
 			final long llAddCertainEnde= System.nanoTime();
 			final long llSwap = System.nanoTime();
-			//--------------------------------------------fehlt noch-----------------------------
 			Collections.swap(ll,1,2);
 			final long llSwapEnde = System.nanoTime();
 			final long llLänge = System.nanoTime();
